@@ -3,10 +3,14 @@ import MaxWidthWrapper from '../../Common/MaxWidthWrapper/MaxWidthWrapper'
 import { uploadPDF } from '../../../api/api'
 import { Toast } from '../../../Utils/alert'
 import PdfEdit from '../Pdfedit/PdfEdit'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
     const [isLoading,setIsLoading]=useState(false)
     const [fileId, setFileId] = useState('')
+    const navigate=useNavigate()
+    const IsUserAuth = useSelector((state) => state.user?.Token);
     const fileInputRef = useRef(null)
     const triggerAddFile = () => {
         if (fileInputRef.current) {
@@ -14,6 +18,7 @@ const Home = () => {
         }
       };
       const handleFileInput = async(e) => {
+        if(IsUserAuth){
         if (e.target.files) {
           setIsLoading(true)
           const selectedFile = e.target.files[0];
@@ -33,6 +38,15 @@ const Home = () => {
               })
           }
         }
+      }else {
+        Toast.fire({
+          icon: "error",
+          title: "Please login",
+        })
+        setTimeout(()=>{
+          navigate("/login")
+        },1000)
+      }
       };  
   return (
     <>
