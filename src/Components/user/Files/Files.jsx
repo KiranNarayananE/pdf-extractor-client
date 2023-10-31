@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import MaxWidthWrapper from '../../Common/MaxWidthWrapper/MaxWidthWrapper'
 import { deletePdf, getFiles } from '../../../api/api';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash,faDownload } from "@fortawesome/free-solid-svg-icons";
+import { ArrowDownOnSquareIcon ,TrashIcon} from "@heroicons/react/24/solid"
+
 const Files = () => {
     const [data, setData] = useState([]);
     const getFile = async () => {
@@ -72,8 +72,8 @@ const Files = () => {
                               className="w-4 mr-2 transform hover:text-secondary-500 hover:scale-110"
                               key={pdf?.originalFileName}
                             >
-                              <FontAwesomeIcon
-                                icon={faTrash}
+                              <TrashIcon
+                                
                                 onClick={() => {
                                     handleDelete(pdf?._id);
                                   }}
@@ -87,8 +87,8 @@ const Files = () => {
                               className="w-4 mr-2 transform hover:text-secondary-500 hover:scale-110"
                               key={pdf?._id}
                             >
-                              <FontAwesomeIcon
-                                icon={faDownload}
+                              <ArrowDownOnSquareIcon
+
                                 onClick={() => {
                                     handleDownload(pdf?.modifiedFileData,pdf?.modifiedFileName);
                                   }}
