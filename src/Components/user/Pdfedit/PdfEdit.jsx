@@ -16,6 +16,15 @@ const PdfEdit = ({fileId}) => {
   const [pages, setPages] = useState([]);
   const [extractedFileId, setExtractedFileId] = useState('')
   const [isLoading,setIsLoading] = useState(false)
+  let count =0
+  if(pages.length){
+    count=pages.reduce((acc,curr)=>{
+      if(curr.selected){
+        acc++
+      }
+      return acc
+    },0)
+  }
   const getFile = async () => {
     const fileData = await getUploadedPDF(fileId); 
     const pdfArrayBuffer = fileData;
@@ -113,7 +122,7 @@ const handleReset = async() => {
 
   useEffect(() => {
     getFile();
-  }, []);
+  }, [getFile]);
   return (
     <>
       
@@ -179,7 +188,7 @@ const handleReset = async() => {
               </p>
               
               <p className="text-xl text-center mt-5 mb-2 ">
-              Pages to Extract:5
+              Pages to Extract:{count}
               </p>
 
              {extractedFileId?

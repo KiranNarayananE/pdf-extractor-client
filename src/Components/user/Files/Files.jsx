@@ -35,7 +35,7 @@ const Files = () => {
 
       useEffect(() => {
         getFile();
-      }, []);
+      }, [getFile]);
   return (
     <MaxWidthWrapper className='mb-12 mt-28 sm:mt-40 '>
         <div className="min-w-screen flex items-center justify-center font-sans overflow-x-scroll scrollbar-hide">
