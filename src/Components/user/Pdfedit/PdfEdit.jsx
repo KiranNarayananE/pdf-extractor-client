@@ -7,10 +7,10 @@ import "react-pdf/dist/Page/AnnotationLayer.css";
 
 import { useEffect, useState } from "react";
 import { downloadExtractedPDF, getUploadedPDF, mergePDF } from '../../../api/api';
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-    "pdfjs-dist/build/pdf.worker.min.js",
-    import.meta.url
-  ).toString();
+// pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+//     "pdfjs-dist/build/pdf.worker.min.js",
+//     import.meta.url
+//   ).toString();
 const PdfEdit = ({fileId}) => {
     const [file, setFile] = useState(null);
   const [pages, setPages] = useState([]);
