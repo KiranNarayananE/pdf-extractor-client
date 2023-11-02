@@ -25,17 +25,7 @@ const PdfEdit = ({fileId}) => {
       return acc
     },0)
   }
-  const getFile = async () => {
-    const fileData = await getUploadedPDF(fileId); 
-    const pdfArrayBuffer = fileData;
-    const uint8Array = new Uint8Array(pdfArrayBuffer); 
-
-    const blob = new Blob([uint8Array], { type: "application/pdf" });
-    const fileObject = new File([blob], "lastAdded.pdf", {
-      type: "application/pdf",
-    })
-    setFile(fileObject);
-  };
+  
   const handleDocumentLoadSuccess = ({ numPages }) => {
     let pages=[]
     for(let i=1;i<=numPages;i++){
@@ -121,8 +111,19 @@ const handleReset = async() => {
  }
 
   useEffect(() => {
+    const getFile = async () => {
+      const fileData = await getUploadedPDF(fileId); 
+      const pdfArrayBuffer = fileData;
+      const uint8Array = new Uint8Array(pdfArrayBuffer); 
+  
+      const blob = new Blob([uint8Array], { type: "application/pdf" });
+      const fileObject = new File([blob], "lastAdded.pdf", {
+        type: "application/pdf",
+      })
+      setFile(fileObject);
+    };
     getFile();
-  }, [getFile]);
+  }, []);
   return (
     <>
       
