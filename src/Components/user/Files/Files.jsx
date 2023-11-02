@@ -9,7 +9,7 @@ const Files = () => {
         const fileData = await getFiles(); 
        
         setData(fileData[0].files);
-      },[data]);
+      },[]);
       const handleDownload = async(fileData,fileName) => { 
         
         const uint8Array = new Uint8Array(fileData.data)
