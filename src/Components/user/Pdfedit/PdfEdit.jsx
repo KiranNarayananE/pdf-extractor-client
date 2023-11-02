@@ -35,7 +35,7 @@ const PdfEdit = ({fileId}) => {
       type: "application/pdf",
     })
     setFile(fileObject);
-  });
+  },[file]);
   const handleDocumentLoadSuccess = ({ numPages }) => {
     let pages=[]
     for(let i=1;i<=numPages;i++){

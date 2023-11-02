@@ -67,7 +67,7 @@ const Navbar = () => {
                 {!user?
                 <div className={`${flexBetween} gap-8`}>
                   <p className="cursor-pointer" onClick={() => navigate("/login")}>Sign In</p>
-                  <button className="rounded-md bg-secondary-500 px-10 py-2 hover:bg-primary-500 hover:text-white" onClick={() => navigate("/signup")}>
+                  <button className="rounded-md bg-secondary-500 px-10 py-2 hover:bg-primary-500 hover:text-white" onClick={() => navigate("/login")}>
                     Become a Member
                   </button>
                 </div>:
