@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import MaxWidthWrapper from '../../Common/MaxWidthWrapper/MaxWidthWrapper'
 import { deletePdf, getFiles } from '../../../api/api';
 import { ArrowDownOnSquareIcon ,TrashIcon} from "@heroicons/react/24/solid"
 
 const Files = () => {
     const [data, setData] = useState([]);
-    
+    const getFile = useCallback(async () => {
+        const fileData = await getFiles(); 
+       
+        setData(fileData[0].files);
+      });
       const handleDownload = async(fileData,fileName) => { 
         
         const uint8Array = new Uint8Array(fileData.data)
@@ -30,13 +34,8 @@ const Files = () => {
        }
 
       useEffect(() => {
-        const getFile = async () => {
-            const fileData = await getFiles(); 
-           
-            setData(fileData[0].files);
-          };
         getFile();
-      }, []);
+      }, [getFile]);
   return (
     <MaxWidthWrapper className='mb-12 mt-28 sm:mt-40 '>
         <div className="min-w-screen flex items-center justify-center font-sans overflow-x-scroll scrollbar-hide">

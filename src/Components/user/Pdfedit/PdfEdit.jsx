@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Document, Page } from "react-pdf";
 import { pdfjs } from "react-pdf";
 import { DragDropContext,Draggable, Droppable} from 'react-beautiful-dnd';
@@ -25,7 +25,17 @@ const PdfEdit = ({fileId}) => {
       return acc
     },0)
   }
-  
+  const getFile = useCallback(async () => {
+    const fileData = await getUploadedPDF(fileId); 
+    const pdfArrayBuffer = fileData;
+    const uint8Array = new Uint8Array(pdfArrayBuffer); 
+
+    const blob = new Blob([uint8Array], { type: "application/pdf" });
+    const fileObject = new File([blob], "lastAdded.pdf", {
+      type: "application/pdf",
+    })
+    setFile(fileObject);
+  });
   const handleDocumentLoadSuccess = ({ numPages }) => {
     let pages=[]
     for(let i=1;i<=numPages;i++){
@@ -111,19 +121,9 @@ const handleReset = async() => {
  }
 
   useEffect(() => {
-    const getFile = async () => {
-      const fileData = await getUploadedPDF(fileId); 
-      const pdfArrayBuffer = fileData;
-      const uint8Array = new Uint8Array(pdfArrayBuffer); 
-  
-      const blob = new Blob([uint8Array], { type: "application/pdf" });
-      const fileObject = new File([blob], "lastAdded.pdf", {
-        type: "application/pdf",
-      })
-      setFile(fileObject);
-    };
+    
     getFile();
-  }, []);
+  }, [getFile]);
   return (
     <>
       
